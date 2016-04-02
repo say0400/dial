@@ -27,11 +27,20 @@
   {
 
     //Connecting to sql db.
-    $connect = mysqli_connect("localhost", "root", "vkdnjwjs","ohnew");
+  /*  $connect = mysqli_connect("localhost", "root", "vkdnjwjs","ohnew");
     $result = mysqli_query($connect, "SELECT * FROM student");
     //Sending form data to sql db.
     $row = mysql_fetch_array($result)
-    mysqli_query($connect,"INSERT INTO student(score) VALUES ('$row[score]')");
+    mysqli_query($connect,"UPDATE student SET score = 1 WHERE studentID= $row['studentID']");
+*/
+    mysql_connect("localhost", "root", "vkdnjwjs");
+      mysql_select_db("ohnew");
+    $result = mysql_query("SELECT * FROM student");
+    //Sending form data to sql db.
+    $row = mysql_fetch_array($result,MYSQL_BOTH);
+    echo mysql_error();
+
+    mysql_query("UPDATE student SET score = 1 WHERE studentID=".$row['studentID']);
 
   }
 
