@@ -31,16 +31,15 @@
   $result = mysql_query("SELECT * FROM student");
   $ques = mysql_query("SELECT quesno FROM student WHERE studentID=".$_GET["studentID"]);
   $quesno = mysql_fetch_array($ques);
-  header('location: finish.php');
+  echo $quesno[0];
 
-
-  if($arr[$quesno[0]]=='o')
+  if($arr[$quesno[0]]=='x')
   {
 
 
     //Sending form data to sql db.
     $quesno[0] = $quesno[0]+1;
-    if($arr[$quesno[0]]!='o'&&$arr[$quesno[0]]!='x')
+    if($arr[$quesno[0]]!='o'&& $arr[$quesno[0]]!='x')
     {
         header('location: finish.php');
     }
@@ -50,7 +49,7 @@
 
   else {
     $quesno[0] = $quesno[0]+1;
-    if($arr[$quesno[0]]!='o'&&$arr[$quesno[0]]!='x')
+    if($arr[$quesno[0]]!='o'&& $arr[$quesno[0]]!='x')
     {
         header('location: finish.php');
     }
@@ -62,14 +61,10 @@
   $referer_url = $_SERVER['HTTP_REFERER'];
 
    //Move to prev page
-
    if($arr[$quesno[0]]=='o'||$arr[$quesno[0]]=='x')
    {
         header('location:'.  $referer_url);
    }
-
-
-
 
 
 

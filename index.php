@@ -20,8 +20,9 @@
     </br>
 
 
-		<form name=ohnew method=post action="http://localhost/1.php">
-			  ID(학번):  <input type = "text" name = studentID></br></br>
+
+		<form name="dial" method="get" action="1.php">
+			  ID(학번):  <input type = "text" name = "studentID"></br></br>
 
 		             <input type="image" src="start1.jpg" alt="시작버튼">
 		</form>

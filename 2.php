@@ -10,23 +10,34 @@
 	<link href="http://localhost/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<?php
+
+
+ ?>
 <center>
   <table>
   </br>  </br>  </br>  </br>
             <tr>
                   <td>
-                    <form method=post action = "http://localhost/o.php">
+
+                    <form name="dial" method="get" action = "o.php">
+											<input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
                       <input type="image" src="o.jpg" alt="시작버튼" style="width:300px; height:300px;">
+
                     </form>
                   </td>
                   <td>
-                  <form method=post action = "http://x.html">
+                  <form name="dial" method="get" action = "x.php">
+										<input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
                     <input type="image" src="x.jpg" alt="시작버튼"style="width:300px; height:300px;">
                   </form>
                   </td>
             </tr>
 
         </table>
+</center>
+
 
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

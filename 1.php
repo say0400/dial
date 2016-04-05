@@ -9,26 +9,39 @@
 
   <link href="http://localhost/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
 
+
+</head>
+
+
+<body onLoad="Timer();">
+
+  <form name="dial" method="get" action="2.php">
+       <input type="hidden" name="studentID" value="<?=$_GET["studentID"];?>">
+
+  </form>
+
   <script>
   <!--
   function Timer() {
-  setTimeout("locateKap()",30000);
+  setTimeout("locateKap()",5000);
    }
   function locateKap(){
-   location.replace("http://localhost/2.php"); // 시간 지나면 사이트 이동시킨다 이쪽으로!
+
+   document.dial.submit();// 시간 지나면 사이트 이동시킨다 이쪽으로!
   }
    //-->
 
 
-    cnt = 30; // 카운트다운 시간 초단위로 표시
+    cnt = 5; // 카운트다운 시간 초단위로 표시
     function countdown() {
      if(cnt == 0){
+
             // 시간이 0일경우
            locateKap();
      }else {
            // 시간이 남았을 경우 카운트다운을 지속한다.
 
-          document.all.choonDiv.innerHTML = "<br><br><br><br><br><br>"+ cnt + "초후에 PLAY 화면으로 이동이 됩니다...";
+          document.all.dialT.innerHTML = "<br><br><br><br><br><br>"+ cnt + "초후에 PLAY 화면으로 이동이 됩니다...";
           setTimeout("countdown()",1000);
 
     cnt--;
@@ -36,12 +49,8 @@
     }
   </script>
 
-</head>
 
-
-<body onLoad="Timer();">
-
-<div id="choonDiv"></div>
+<div id="dialT"></div>
 
 <script>countdown();</script>
 
@@ -50,8 +59,11 @@
   //Connecting to sql db.
   $connect = mysqli_connect("localhost", "root", "vkdnjwjs","ohnew");
   //Sending form data to sql db.
-  mysqli_query($connect,"INSERT INTO student (studentID) VALUES ('$_POST[studentID]')");
+  mysqli_query($connect,"INSERT INTO student (studentID) VALUES ('$_GET[studentID]')");
+
   ?>
+
+
 
 
 
