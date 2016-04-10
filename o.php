@@ -31,7 +31,7 @@
   $result = mysql_query("SELECT * FROM student");
   $ques = mysql_query("SELECT quesno FROM student WHERE studentID=".$_GET["studentID"]);
   $quesno = mysql_fetch_array($ques);
-  header('location: finish.php');
+  //header('location: finish.php');
 
 
   if($arr[$quesno[0]]=='o')
@@ -40,11 +40,12 @@
 
     //Sending form data to sql db.
     $quesno[0] = $quesno[0]+1;
+		mysql_query("UPDATE student SET score =score+1 WHERE studentID=".$_GET["studentID"]);
     if($arr[$quesno[0]]!='o'&&$arr[$quesno[0]]!='x')
     {
         header('location: finish.php');
     }
-    mysql_query("UPDATE student SET score =score+1 WHERE studentID=".$_GET["studentID"]); //click count 를 문제의 파악. 학번 넘기는 것 해결하자.
+     //click count 를 문제의 파악. 학번 넘기는 것 해결하자.
     mysql_query("UPDATE student SET quesno='$quesno[0]' WHERE studentID=".$_GET["studentID"]);
   }
 
@@ -74,6 +75,7 @@
 
 
   ?>
+
 
 
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

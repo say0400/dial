@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +16,11 @@
 
 <body onLoad="Timer();">
 
+<center>
+</br>
+  <h1><?=$_GET["studentID"];?>님! 반갑습니다! :)</h1>
+  <h2>오뉴에 오신걸 환영합니다!</h2>
+</center>
   <form name="dial" method="get" action="2.php">
        <input type="hidden" name="studentID" value="<?=$_GET["studentID"];?>">
 
@@ -41,10 +47,10 @@
      }else {
            // 시간이 남았을 경우 카운트다운을 지속한다.
 
-          document.all.dialT.innerHTML = "<br><br><br><br><br><br>"+ cnt + "초후에 PLAY 화면으로 이동이 됩니다...";
+          document.all.dialT.innerHTML = "<center><h1><br><br><br>"+ cnt + "초후에 PLAY 화면으로 이동이 됩니다...</h1></center>";
           setTimeout("countdown()",1000);
 
-    cnt--;
+    cnt--; //cnt 값을 전역 변수로 선언하고 cnt값마다 점수를 다르게 배정하면 빠르게 누른 사람이 더 많은 점수를 받는 부분을 구현할 수 있지 않을까?
      }
     }
   </script>
