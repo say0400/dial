@@ -27,6 +27,8 @@
   </form>
 
   <script>
+
+
   <!--
   function Timer() {
   setTimeout("locateKap()",5000);
@@ -62,11 +64,13 @@
 
 
   <?php
+  //date_default_timezone_set('Asia/Seoul');
+//  echo date("H:i:s");
   //Connecting to sql db.
   $connect = mysqli_connect("localhost", "root", "vkdnjwjs","ohnew");
   //Sending form data to sql db.
   mysqli_query($connect,"INSERT INTO student (studentID) VALUES ('$_GET[studentID]')");
-
+//서버시간을 보고 카운트 다운시작하게 해야한다. 영화의 경우 영화 상영 시간을 미리 알수 있음으로 가능...!
   ?>
 
 

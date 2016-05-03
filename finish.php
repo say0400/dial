@@ -13,16 +13,31 @@
 
 
 
-
-  <h1>JavaScript</h1>
-  <script>
-
-  </script>
-
-  <h2>PHP</h2>
   <?php
 
-   ?>
+  $clickscore = $_GET['clickscore'];
+  $score = $_GET['score'];
+	$studentID = $_GET['studentID'];
+
+  echo $studentID;
+	echo "님은 총 ";
+	echo $score;
+	echo "점을 획득 하셨습니다!";
+	echo "클릭 스코어는 ";
+	echo $clickscore;
+	echo "점 입니다!";
+
+
+
+  mysql_connect("localhost", "root", "vkdnjwjs");
+  mysql_select_db("ohnew");
+
+
+  mysql_query("UPDATE student SET score=$score WHERE studentID= $studentID");
+
+
+  ?>
+
 
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

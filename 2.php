@@ -27,7 +27,7 @@
 	  mysql_select_db("ohnew");
 	  $result = mysql_query("SELECT * FROM student");
 	  $ques = mysql_query("SELECT quesno FROM student WHERE studentID=".$_GET["studentID"]);
-	  $quesno = mysql_fetch_array($ques);
+
 	?>
 
 
@@ -35,89 +35,170 @@
 <center>
   <table>
   </br>
+  <td id="elmclick"></td>
 	<h2><?=$_GET["studentID"];?>님! 반갑습니다! :)</h2>
-	<h1><?=$quesno[0]+1?>번 문제입니다!</h1>
+  <div id="dial"></div>
+  <div id="time"></div>
 
 	<div class="progress" id="example-percent-container"></div>
 
-	<script>
-	var circle = new ProgressBar.Circle('#example-percent-container', {
-	    color: '#FCB03C',
-	    strokeWidth: 15,
-	    trailWidth: 1,
-	    duration: 5000,
-	    text: {
-	        value: '0'
-	    },
-	    step: function(state, bar) {
-	        bar.setText((bar.value() * 100).toFixed(0));
-	    }
-	});
-
-	circle.animate(1, function() {
-	    circle.animate(0);
-	})
-
-//////////////////////////// 아래는 진짜 타이머
-	function Timer() {
-  setTimeout("locateKap()",7000);
-   }
-  function locateKap(){
 
 
 
-	document.dialT.submit();
-
-
-  }
-   //-->
-
-
-    //cnt = 5; // 카운트다운 시간 초단위로 표시
-    function countdown() {
-     if(cnt == 0){
-
-            // 시간이 0일경우
-           locateKap();
-     }else {
-           // 시간이 남았을 경우 카운트다운을 지속한다.
-
-          setTimeout("countdown()",1000);
-
-    cnt--;
-     }
-    }
-
-
-	</script>
-
-	<div id="dialT"></div>
-
-	<script>countdown();</script>
-
-
-  <form name="dialT" method="get" action = "back.php">
-		<input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
+  <form name="dialT" method="get" action = "finish.php">
+		<input type = "hidden" name="score" value="">
+    <input type = "hidden" name="clickscore" value="">
+    <input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
   </form>
 					  <tr>
                   <td>
-<!--~ 님 반갑습니다. ~몇번 문제입니다. 뜨게 하기.어떤 시각적인 bar(1초당 한칸씩 달게하기)가 나와서 그 시간이 (5초)지나면 그냥 다음문제로 넘어가게 해야 한다. -->
-                    <form name="dial" method="get" action = "o.php">
-											<input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
-                      <input type="image" src="o.jpg" alt="시작버튼" style="width:150px; height:150x;">
+<!--~ 5초 전에 눌러도 기다려야 한다. (php) sleep 하고 function으로 기다렸다가 결과 전송.... 답 누른 상태에서는 다른 답 못누르게 해야한다.(다른 페이지로 보내버리자...) -->
 
-                    </form>
+											<input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
+                      <input type="image" id = "o" src="o.jpg" alt="시작버튼" style="width:150px; height:150x;">
+
+
                   </td>
                   <td>
-                  <form name="dial" method="get" action = "x.php">
+
 										<input type = "hidden" name="studentID" value="<?=$_GET['studentID']; ?>">
-                    <input type="image" src="x.jpg" alt="시작버튼"style="width:150px; height:150px;">
-                  </form>
+                    <input type="image" id = "x" src="x.jpg" alt="시작버튼"style="width:150px; height:150px;">
+
                   </td>
             </tr>
 
         </table>
 </center>
+
+<script>
+
+ var clickscore=0;
+ var stop=0;
+ var realquesno=1;
+ var score=0;
+ var quesno=2;//2부터 답을 읽어낸다. 4문제라면 총 5개의 char 정답을 만들어야한다.;
+ var t1 = document.getElementById('o');
+ var t2 = document.getElementById('x');
+
+        t1.addEventListener('click', function(event){
+          if(stop==1)
+            event.preventDefault();
+else{
+     var xhr = new XMLHttpRequest();
+     xhr.open('POST', './ans.php');
+     xhr.onreadystatechange = function(){
+
+       if(xhr.readyState === 4 && xhr.status === 200){
+                   var _tzs = xhr.responseText;
+                   var tzs = _tzs.split(',');
+                  if(tzs[quesno]=='o')
+                {
+                  score = score + 1;
+                  var info = document.getElementById('elm'+event.type);
+                  clickscore = clickscore + cnt;
+                  info.innerHTML = (clickscore);
+                }
+                 }
+                 stop=1;
+     }
+
+
+  }
+     xhr.send();
+
+
+ });
+
+
+ t2.addEventListener('click', function(event){
+   if(stop==1)
+     event.preventDefault();
+
+   else{
+ var xhr = new XMLHttpRequest();
+ xhr.open('POST', './ans.php');
+ xhr.onreadystatechange = function(){
+
+ if(xhr.readyState === 4 && xhr.status === 200){
+            var _tzs = xhr.responseText;
+            var tzs = _tzs.split(',');
+           if(tzs[quesno]=='x')
+         {
+           score = score + 1;
+           var info = document.getElementById('elm'+event.type);
+           clickscore = clickscore + cnt;
+           info.innerHTML = (clickscore);
+         }
+        }
+         stop=1;
+ }
+
+}
+
+ xhr.send();
+
+
+ });
+
+
+
+ function Timer() {
+ setTimeout("locateKap()",16000);
+  }
+ function locateKap(){
+    document.dialT.clickscore.value = clickscore;
+   document.dialT.score.value = score;
+  document.dialT.submit();// 시간 지나면 끝낸다.
+ }
+
+
+   cnt = 16; // 카운트다운 시간 초단위로 표시
+   function countdown() {
+    if(cnt<16&&cnt%4==0){
+      stop=0;
+
+      if(realquesno<4)
+      realquesno = realquesno + 1;
+
+            document.all.dial.innerHTML = "<center><h1><br>"+realquesno+"번 문제 입니다.</h1></center>";
+            document.all.time.innerHTML = "<center><h1><br>(테스트용) 총 남은시간"+cnt+"초</h1></center>";
+          quesno = quesno + 1;
+           cnt--;
+    }else {
+        document.all.dial.innerHTML = "<center><h1><br>"+realquesno+"번 문제 입니다.</h1></center>";
+          document.all.time.innerHTML = "<center><h1><br>(테스트용) 총 남은시간"+cnt+"초</h1></center>";
+   cnt--; //cnt 값을 전역 변수로 선언하고 cnt값마다 점수를 다르게 배정하면 빠르게 누른 사람이 더 많은 점수를 받는 부분을 구현할 수 있지 않을까?
+ }
+
+       setTimeout("countdown()",1000);
+   }
+
+
+
+
+var circle = new ProgressBar.Circle('#example-percent-container', {
+    color: '#FCB03C',
+    strokeWidth: 15,
+    trailWidth: 1,
+    duration: 16000,
+    text: {
+        value: '0'
+    },
+    step: function(state, bar) {
+        bar.setText((bar.value() * 100).toFixed(0));
+    }
+});
+
+circle.animate(4, function() {
+    circle.animate(0);
+})
+
+
+
+</script>
+
+
+	<script>countdown();</script>
 
 
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
