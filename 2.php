@@ -22,13 +22,6 @@
 </head>
 <body onLoad="Timer();">
 
-	<?php
-		mysql_connect("localhost", "root", "vkdnjwjs");
-	  mysql_select_db("ohnew");
-	  $result = mysql_query("SELECT * FROM student");
-	  $ques = mysql_query("SELECT quesno FROM student WHERE studentID=".$_GET["studentID"]);
-
-	?>
 
 
 
