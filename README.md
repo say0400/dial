@@ -3,28 +3,37 @@
 손다열 - 21200376 이동영 - 21200512 이한성 - 21200610 조혜인 - 21300739
 
 
-##Compile
-1. Go to root directory where build.xml, src and lib folder exists.
-2. Type ant.
-3. Go to jar directory.
-4. Enter this command <br>
-   * java -jar project.jar -i a.md(markdown file)
+##Where to put md file.
+* Highest diretory is root directory. In root directory, there is a md file named ‘a.md’<br> 
+and a directory named ‘O_TEAM’. ‘a.md’ is a dummy file that is needed for testing <br>
+(please don’t delete this file. Otherwise it will cause error while testing or <br>
+it cannot cover many test cases we made.). <br>
+In directory ‘O_TEAM’, there are files and directories called ‘build.xml’, ‘README.md’, <br>
+‘lib’ ,‘src’. Actual md file that you will use to convert to html file should be <br>
+located in this directory O_TEAM. So it should be like root/O_TEAM/example.md .
 
+ 
+##Compile
+1. Go to O_TEAM directory where build.xml, src and lib directory exists.
+2. Type ant.
+3. Go to 'jar' directory.
+4. Enter command like,
+    java -jar project.jar -i a.md(markdown file)
+5. You can check jacoco result on index.html which is at 'report' directory.
+6. Test classes are in 'test' directory which is at root directory.
 
 
 ##Syntax
-* java -jar project.jar __-i__ [md file]+
-* java -jar project.jar __-i__ [md file]+ __-o__ [html file]*
+* java -jar project.jar __-i__ [md file]
+* java -jar project.jar __-i__ [md file]+ __-o__ [html fi,e]*
 * java -jar project.jar __-i__ [md file]+ __-s__ [plain]*
 * java -jar project.jar __-i__ [md file]+ __-o__ [html file]* __-s__ [plain]*
 
 
 
-
 ##Format
-* __-i__ [md file]+
-  1. A user can enter one or more md file/s.
-  2. When user enter md file/s, please add '.md'
+* __-i__ [md file]
+  1. When user enter md file, please add '.md'
 
 good use
 ```
@@ -38,8 +47,7 @@ bad use
 ```
 
 * __-o__ [html file]*
-  1. User can enter zero or mre html file.s.
-  2. When user enter html file/s, please add '.html'
+  1. When user enter html file, please add '.html'
 
 good use
 ```
@@ -53,15 +61,14 @@ bad use
 -o html1.ht html2.se
 ```
 
-* __-s__ [plain | fancy | slide]*
+* __-s__ [plain]*
   1. A user can enter zero or more style option.
   2. If user does not input style option, program applies plain(default) style
 
 good use
 ```
 -s  
--s slide
--s fancy slide
+-s plain
 ```
 
 bad use
@@ -75,8 +82,6 @@ bad use
 
 ### Style
 1. plain - default style
-2. fancy - fancy style
-3. slide - slide style
 
 
 
